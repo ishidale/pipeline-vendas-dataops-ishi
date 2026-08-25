@@ -1,0 +1,36 @@
+name: CI Pipeline de dados
+
+### executar quando ocorrer um push ou um pull request
+
+on:
+  push:
+  pull_request:
+
+
+### JOBS:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      # baixar projeto
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+      
+      # configurar python
+      - name: Configurar python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      
+      # instalar dependencias
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+      
+      # executar testes
+      - name: Executar testes
+        run: python -m pytest
+
+
